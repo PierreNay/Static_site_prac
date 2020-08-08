@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+   <table id="mel" class="mel">
+      <tr>
+         <td class="front_menu" >
+            <div class="logo">
+               <img src="logo.png"  class="w3-round" alt="Norway">
+            </div>
+            <h2>
+               Baked Treats
+            </h2>
+            <div class="dish_name">
+               <front_menu_list
+               v-for="dish in main_menu"
+               v-bind:name = "dish.name"
+               v-bind:cost1 = "dish.cost1"
+               v-bind:cost2 = "dish.cost2"
+               v-bind:cost3= "dish.cost3"
+               >
+               </front_menu_list>
+               <div class="dish_row">
+                  <div class="menu_dish_name">Sandwiches</div>
+                  <div class="dish_descr_cost">
+                      <span class="descr">Delicious sandwiches with a variety of fillings from bacon, cheese tuna etc</span>
+                      <span class="cost">R32</span>
+                  </div>
+              </div>
+              <div class="dish_row">
+                  <div class="menu_dish_name">PIES</div>
+                  <div class="dish_descr_cost">
+                     <span class="descr">Beef, Chicken and other fillings</span>
+                     <span class="cost">R25</span>
+                  </div>
+               </div>
+            </div>
+         </td>
+         <td>
+            <h1>Main</h1>
+            <!--component-->
+            <table class="menu">
+               <mel_menu
+               v-for="dish in menu"
+               v-bind:name="dish.name"
+               v-bind:descr="dish.descr"
+               v-bind:cost="dish.cost"
+               v-bind:key="dish.id"
+             ></mel_menu>
+
+            </table>
+         </td>
+      </tr>
+   </table>
+</body>
+
+<script>
+Vue.component('mel_menu', {
+   props: ['name','descr','cost'],
+   template: '<div class="dish_row"><div class="dish_name">{{name}}</div><div class="dish_descr_cost"><span class="descr">{{descr}}</span><span class="cost">R{{cost}}</span></div></div>'
+})
+
+Vue.component('front_menu_list', {
+   props: ['name','cost1','cost2','cost3'],
+   template: '<div class="main_menu" ><div class="name">{{name}}</div><div class="cost1">{{cost1}}</div><div class="cost2">{{cost2}}</div><div class="cost3">{{cost3}}</div></div>'
+})
+
+var mel = new Vue({
+  el: '#mel',
+  data: {
+    menu: [
+      { id: 0, name: 'LASAGNA', descr: 'Delicious lasagna with side salad', cost: '45'},
+      { id: 1, name: 'CHICKEN A LA KING',descr: 'Mouth watering chicken a la king served with herbed rice and a side of veggie', cost: '43'},
+      { id: 2, name: 'CURRIED RICE AND MINCE',descr: 'Tasted curried yellow rice with a side of veggie', cost: '45' },
+      { id: 3, name: 'BEEF STROGANOFF',descr: 'Served with rice and a side of veggie', cost: '50' },
+      { id: 4, name: 'HERBED MASHED POTATOE',descr: 'Served with sweet chilli grilled chicken or wors', cost: '45' },
+      { id: 5, name: 'STIR FRY(BEEF OR CHICKEN)',descr: 'Served with rice or pasta', cost: '50' },
+      { id: 6, name: 'SPAGETTI AND MEATBALLS',descr: 'Served with a salad or veggie', cost: '50' },
+      { id: 7, name: 'SHEPHERD\'S PIE',descr: 'Served with a delicious salad or veggie', cost: '50' },
+      { id: 8, name: 'WRAPS',descr: 'Delicious chicken or beef wraps served with chips', cost: '40' },
+      { id: 9, name: 'HAKE FISH',descr: 'Served with curried rice or chips with a side of salad or veggie', cost: '50' },
+      { id: 10, name: 'BURGERS',descr: 'Served with chips or salad', cost: '50' },
+      { id: 11, name: 'SAMP',descr: 'Served with beef stew', cost: '45' },
+      { id: 12, name: 'PAP',descr: 'Served with beef or chicken stew', cost: '45' },
+      { id: 13, name: 'BAKED PASTA DISHES',descr: 'Served with veggie or salad', cost: '45' },
+      { id: 14, name: 'FLAVOURFUL GRILL CHICKEN',descr: 'Served with chips,rice or pap', cost: '50' }
+   ],
+   main_menu : [
+      { id: 0, name: 'LASAGNA', cost1: 'R5 for 1', cost2: 'R20 for 2', cost3: 'R40 for 12'},
+      { id: 1, name: 'SCONES', cost1: 'R3 for 1', cost2: 'R12 for 5', cost3: 'R32 for 12'},
+      { id: 2, name: 'ROTI(WRAP)', cost1: 'R12 for 8', cost2: 'R20 for 16', cost3: 'R30 for 25'},
+      { id: 3, name: 'MUFFINS', cost1: 'R4.50 for 1', cost2: 'R20 for 5', cost3: 'R49 for 12'},
+   ]
+  }
+})
+
+</script>
+
+<style>
+   body {
+      background-image: url("background-image.jpg");
+      background-size: 100%;
+      text-align: center;
+      color: antiquewhite;
+   }
+   table.mel {
+      width: 86%;
+      
+   }
+   table.mel td {
+      width: 50%;
+   }
+   table.menu td {
+      padding-left: 10%;
+      padding-right: 5%;
+      text-align: left;
+      width: 30%;
+   }
+   table.menu td.cost{
+      text-align: center;
+   }
+   .dish_row {
+      margin-bottom: 10px;
+   }
+   .dish_name {
+      text-align: left;
+   }
+   .descr {
+      float: left;
+      width: 80%;
+      text-align: left;
+      font-size: 11px;
+   }
+   .inner_square {
+      width: 100px;
+      height: 100px;
+      padding: 5px;
+      text-align: center;
+   }
+   .outer_square {
+      width: 110px;
+      height: 110px;
+      margin: auto;
+   }
+   .front_menu {
+      vertical-align: initial;
+   }
+   .logo {
+      _background-image: url("logo.png");
+      _background-repeat: no-repeat;
+      _height: 240px;
+   }
+   .main_menu{
+      margin-bottom: 10px;
+   }
+    .cost1,  .cost2, .cost3 {
+      font-size: 11px;
+   }
+   .front_menu .dish_name {
+      padding-left: 25%;
+   }
+</style>
+</html> 
